@@ -1,0 +1,60 @@
+// This is a sample model to get you started.
+
+/**
+ * A sample data source using local sqlite db.
+ */
+datasource db {
+    provider = 'postgresql'
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+plugin openapi {
+    provider = "@zenstackhq/openapi"
+    output = "openapi.yaml"
+    title = "My Todo API"
+    version = "1.0.0"
+}
+
+plugin hooks {
+    provider = '@zenstackhq/tanstack-query'
+    target = 'vue'
+    output = 'lib/hooks'
+}
+
+model User {
+    id String @id @default(cuid())
+    email String @unique @email
+    hashedPassword String @omit @length(8, 16)
+
+    session Session[]
+    
+    // everybody can signup
+    @@allow('create', true)
+
+    // full access by self
+    @@allow('all', auth() == this)
+
+    post Post[]
+}
+
+model Session {
+    id String @id
+    userId String
+    expiresAt DateTime
+    user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Post {
+    id String @id @default(cuid())
+    title String
+    content String
+
+    userId String
+    user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+    @@allow('read', auth().id == userId)
+}

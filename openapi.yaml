@@ -1,0 +1,4805 @@
+openapi: 3.1.0
+info:
+  title: My Todo API
+  version: 1.0.0
+tags:
+  - name: user
+    description: User operations
+  - name: session
+    description: Session operations
+  - name: post
+    description: Post operations
+components:
+  schemas:
+    UserScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - email
+        - hashedPassword
+    SessionScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - userId
+        - expiresAt
+    PostScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - title
+        - content
+        - userId
+    SortOrder:
+      type: string
+      enum:
+        - asc
+        - desc
+    QueryMode:
+      type: string
+      enum:
+        - default
+        - insensitive
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        session:
+          type: array
+          items:
+            $ref: "#/components/schemas/Session"
+        post:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+      required:
+        - id
+        - email
+        - hashedPassword
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - id
+        - userId
+        - expiresAt
+        - user
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        userId:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - id
+        - title
+        - content
+        - userId
+        - user
+    UserWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/UserWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/UserWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        email:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        hashedPassword:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        session:
+          $ref: "#/components/schemas/SessionListRelationFilter"
+        post:
+          $ref: "#/components/schemas/PostListRelationFilter"
+    UserOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        email:
+          $ref: "#/components/schemas/SortOrder"
+        hashedPassword:
+          $ref: "#/components/schemas/SortOrder"
+        session:
+          $ref: "#/components/schemas/SessionOrderByRelationAggregateInput"
+        post:
+          $ref: "#/components/schemas/PostOrderByRelationAggregateInput"
+    UserWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/UserWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/UserWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserWhereInput"
+        hashedPassword:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        session:
+          $ref: "#/components/schemas/SessionListRelationFilter"
+        post:
+          $ref: "#/components/schemas/PostListRelationFilter"
+    UserScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        email:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        hashedPassword:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+    SessionWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        expiresAt:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeFilter"
+            - type: string
+              format: date-time
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/UserRelationFilter"
+            - $ref: "#/components/schemas/UserWhereInput"
+    SessionOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        userId:
+          $ref: "#/components/schemas/SortOrder"
+        expiresAt:
+          $ref: "#/components/schemas/SortOrder"
+        user:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+    SessionWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereInput"
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        expiresAt:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeFilter"
+            - type: string
+              format: date-time
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/UserRelationFilter"
+            - $ref: "#/components/schemas/UserWhereInput"
+    SessionScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        expiresAt:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeWithAggregatesFilter"
+            - type: string
+              format: date-time
+    PostWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        title:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/UserRelationFilter"
+            - $ref: "#/components/schemas/UserWhereInput"
+    PostOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        title:
+          $ref: "#/components/schemas/SortOrder"
+        content:
+          $ref: "#/components/schemas/SortOrder"
+        userId:
+          $ref: "#/components/schemas/SortOrder"
+        user:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+    PostWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereInput"
+        title:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/UserRelationFilter"
+            - $ref: "#/components/schemas/UserWhereInput"
+    PostScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        title:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+    UserCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        session:
+          $ref: "#/components/schemas/SessionCreateNestedManyWithoutUserInput"
+        post:
+          $ref: "#/components/schemas/PostCreateNestedManyWithoutUserInput"
+      required:
+        - email
+        - hashedPassword
+    UserUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        hashedPassword:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        session:
+          $ref: "#/components/schemas/SessionUpdateManyWithoutUserNestedInput"
+        post:
+          $ref: "#/components/schemas/PostUpdateManyWithoutUserNestedInput"
+    UserCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+      required:
+        - email
+        - hashedPassword
+    UserUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        hashedPassword:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    SessionCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/UserCreateNestedOneWithoutSessionInput"
+      required:
+        - id
+        - expiresAt
+        - user
+    SessionUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expiresAt:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+        user:
+          $ref: "#/components/schemas/UserUpdateOneRequiredWithoutSessionNestedInput"
+    SessionCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - expiresAt
+    SessionUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expiresAt:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    PostCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        user:
+          $ref: "#/components/schemas/UserCreateNestedOneWithoutPostInput"
+      required:
+        - title
+        - content
+        - user
+    PostUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        user:
+          $ref: "#/components/schemas/UserUpdateOneRequiredWithoutPostNestedInput"
+    PostCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        userId:
+          type: string
+      required:
+        - title
+        - content
+        - userId
+    PostUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    StringFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        mode:
+          $ref: "#/components/schemas/QueryMode"
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringFilter"
+    SessionListRelationFilter:
+      type: object
+      properties:
+        every:
+          $ref: "#/components/schemas/SessionWhereInput"
+        some:
+          $ref: "#/components/schemas/SessionWhereInput"
+        none:
+          $ref: "#/components/schemas/SessionWhereInput"
+    PostListRelationFilter:
+      type: object
+      properties:
+        every:
+          $ref: "#/components/schemas/PostWhereInput"
+        some:
+          $ref: "#/components/schemas/PostWhereInput"
+        none:
+          $ref: "#/components/schemas/PostWhereInput"
+    SessionOrderByRelationAggregateInput:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/SortOrder"
+    PostOrderByRelationAggregateInput:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/SortOrder"
+    StringWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        mode:
+          $ref: "#/components/schemas/QueryMode"
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedStringFilter"
+        _max:
+          $ref: "#/components/schemas/NestedStringFilter"
+    DateTimeFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeFilter"
+    UserRelationFilter:
+      type: object
+      properties:
+        is:
+          $ref: "#/components/schemas/UserWhereInput"
+        isNot:
+          $ref: "#/components/schemas/UserWhereInput"
+    DateTimeWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+        _max:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+    SessionCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+    PostCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/PostCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+    SessionUncheckedCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+    PostUncheckedCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/PostCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+    StringFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: string
+    SessionUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+    PostUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/PostCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereInput"
+    SessionUncheckedUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+    PostUncheckedUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/PostCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereInput"
+    UserCreateNestedOneWithoutSessionInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutSessionInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+    DateTimeFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: string
+          format: date-time
+    UserUpdateOneRequiredWithoutSessionNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutSessionInput"
+        upsert:
+          $ref: "#/components/schemas/UserUpsertWithoutSessionInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateToOneWithWhereWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUpdateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutSessionInput"
+    UserCreateNestedOneWithoutPostInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutPostInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutPostInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+    UserUpdateOneRequiredWithoutPostNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutPostInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutPostInput"
+        upsert:
+          $ref: "#/components/schemas/UserUpsertWithoutPostInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateToOneWithWhereWithoutPostInput"
+            - $ref: "#/components/schemas/UserUpdateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutPostInput"
+    NestedStringFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringFilter"
+    NestedStringWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedStringFilter"
+        _max:
+          $ref: "#/components/schemas/NestedStringFilter"
+    NestedIntFilter:
+      type: object
+      properties:
+        equals:
+          type: integer
+        in:
+          type: array
+          items:
+            type: integer
+        notIn:
+          type: array
+          items:
+            type: integer
+        lt:
+          type: integer
+        lte:
+          type: integer
+        gt:
+          type: integer
+        gte:
+          type: integer
+        not:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NestedIntFilter"
+    NestedDateTimeFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeFilter"
+    NestedDateTimeWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+        _max:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+    SessionCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - expiresAt
+    SessionUncheckedCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - expiresAt
+    SessionCreateOrConnectWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - create
+    SessionCreateManyUserInputEnvelope:
+      type: object
+      properties:
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateManyUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateManyUserInput"
+        skipDuplicates:
+          type: boolean
+      required:
+        - data
+    PostCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    PostUncheckedCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    PostCreateOrConnectWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - create
+    PostCreateManyUserInputEnvelope:
+      type: object
+      properties:
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateManyUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostCreateManyUserInput"
+        skipDuplicates:
+          type: boolean
+      required:
+        - data
+    SessionUpsertWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedUpdateWithoutUserInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - update
+        - create
+    SessionUpdateWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedUpdateWithoutUserInput"
+      required:
+        - where
+        - data
+    SessionUpdateManyWithWhereWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionScalarWhereInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateManyMutationInput"
+            - $ref: "#/components/schemas/SessionUncheckedUpdateManyWithoutUserInput"
+      required:
+        - where
+        - data
+    SessionScalarWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionScalarWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        expiresAt:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeFilter"
+            - type: string
+              format: date-time
+    PostUpsertWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedUpdateWithoutUserInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/PostCreateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - update
+        - create
+    PostUpdateWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/PostUncheckedUpdateWithoutUserInput"
+      required:
+        - where
+        - data
+    PostUpdateManyWithWhereWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostScalarWhereInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/PostUpdateManyMutationInput"
+            - $ref: "#/components/schemas/PostUncheckedUpdateManyWithoutUserInput"
+      required:
+        - where
+        - data
+    PostScalarWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostScalarWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        title:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+    UserCreateWithoutSessionInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        post:
+          $ref: "#/components/schemas/PostCreateNestedManyWithoutUserInput"
+      required:
+        - email
+        - hashedPassword
+    UserUncheckedCreateWithoutSessionInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        post:
+          $ref: "#/components/schemas/PostUncheckedCreateNestedManyWithoutUserInput"
+      required:
+        - email
+        - hashedPassword
+    UserCreateOrConnectWithoutSessionInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionInput"
+      required:
+        - where
+        - create
+    UserUpsertWithoutSessionInput:
+      type: object
+      properties:
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutSessionInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionInput"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+      required:
+        - update
+        - create
+    UserUpdateToOneWithWhereWithoutSessionInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutSessionInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutSessionInput"
+      required:
+        - data
+    UserUpdateWithoutSessionInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        hashedPassword:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        post:
+          $ref: "#/components/schemas/PostUpdateManyWithoutUserNestedInput"
+    UserUncheckedUpdateWithoutSessionInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        hashedPassword:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        post:
+          $ref: "#/components/schemas/PostUncheckedUpdateManyWithoutUserNestedInput"
+    UserCreateWithoutPostInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        session:
+          $ref: "#/components/schemas/SessionCreateNestedManyWithoutUserInput"
+      required:
+        - email
+        - hashedPassword
+    UserUncheckedCreateWithoutPostInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        session:
+          $ref: "#/components/schemas/SessionUncheckedCreateNestedManyWithoutUserInput"
+      required:
+        - email
+        - hashedPassword
+    UserCreateOrConnectWithoutPostInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutPostInput"
+      required:
+        - where
+        - create
+    UserUpsertWithoutPostInput:
+      type: object
+      properties:
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutPostInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutPostInput"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+      required:
+        - update
+        - create
+    UserUpdateToOneWithWhereWithoutPostInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutPostInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutPostInput"
+      required:
+        - data
+    UserUpdateWithoutPostInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        hashedPassword:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        session:
+          $ref: "#/components/schemas/SessionUpdateManyWithoutUserNestedInput"
+    UserUncheckedUpdateWithoutPostInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        hashedPassword:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        session:
+          $ref: "#/components/schemas/SessionUncheckedUpdateManyWithoutUserNestedInput"
+    SessionCreateManyUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - expiresAt
+    PostCreateManyUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    SessionUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expiresAt:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    SessionUncheckedUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expiresAt:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    SessionUncheckedUpdateManyWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expiresAt:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    PostUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    PostUncheckedUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    PostUncheckedUpdateManyWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    UserArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+    UserInclude:
+      type: object
+      properties:
+        session:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionFindManyArgs"
+        post:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/PostFindManyArgs"
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountOutputTypeArgs"
+    SessionInclude:
+      type: object
+      properties:
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    PostInclude:
+      type: object
+      properties:
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    UserCountOutputTypeSelect:
+      type: object
+      properties:
+        session:
+          type: boolean
+        post:
+          type: boolean
+    UserCountOutputTypeArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserCountOutputTypeSelect"
+    UserSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        email:
+          type: boolean
+        hashedPassword:
+          type: boolean
+        session:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionFindManyArgs"
+        post:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/PostFindManyArgs"
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountOutputTypeArgs"
+    SessionSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        expiresAt:
+          type: boolean
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    PostSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+        userId:
+          type: boolean
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    UserCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        email:
+          type: boolean
+        hashedPassword:
+          type: boolean
+        _all:
+          type: boolean
+    UserMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        email:
+          type: boolean
+        hashedPassword:
+          type: boolean
+    UserMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        email:
+          type: boolean
+        hashedPassword:
+          type: boolean
+    SessionCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        expiresAt:
+          type: boolean
+        _all:
+          type: boolean
+    SessionMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        expiresAt:
+          type: boolean
+    SessionMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        expiresAt:
+          type: boolean
+    PostCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+        userId:
+          type: boolean
+        _all:
+          type: boolean
+    PostMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+        userId:
+          type: boolean
+    PostMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+        userId:
+          type: boolean
+    AggregateUser:
+      type: object
+      properties:
+        _count:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/UserCountAggregateOutputType"
+        _min:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/UserMinAggregateOutputType"
+        _max:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/UserMaxAggregateOutputType"
+    UserGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        hashedPassword:
+          type: string
+        _count:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/UserCountAggregateOutputType"
+        _min:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/UserMinAggregateOutputType"
+        _max:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/UserMaxAggregateOutputType"
+      required:
+        - id
+        - email
+        - hashedPassword
+    AggregateSession:
+      type: object
+      properties:
+        _count:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/SessionCountAggregateOutputType"
+        _min:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/SessionMinAggregateOutputType"
+        _max:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/SessionMaxAggregateOutputType"
+    SessionGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+        _count:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/SessionCountAggregateOutputType"
+        _min:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/SessionMinAggregateOutputType"
+        _max:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/SessionMaxAggregateOutputType"
+      required:
+        - id
+        - userId
+        - expiresAt
+    AggregatePost:
+      type: object
+      properties:
+        _count:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/PostCountAggregateOutputType"
+        _min:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/PostMinAggregateOutputType"
+        _max:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/PostMaxAggregateOutputType"
+    PostGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        userId:
+          type: string
+        _count:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/PostCountAggregateOutputType"
+        _min:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/PostMinAggregateOutputType"
+        _max:
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/PostMaxAggregateOutputType"
+      required:
+        - id
+        - title
+        - content
+        - userId
+    UserCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: integer
+        hashedPassword:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - email
+        - hashedPassword
+        - _all
+    UserMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: "null"
+            - type: string
+        email:
+          oneOf:
+            - type: "null"
+            - type: string
+        hashedPassword:
+          oneOf:
+            - type: "null"
+            - type: string
+    UserMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: "null"
+            - type: string
+        email:
+          oneOf:
+            - type: "null"
+            - type: string
+        hashedPassword:
+          oneOf:
+            - type: "null"
+            - type: string
+    SessionCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        expiresAt:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - userId
+        - expiresAt
+        - _all
+    SessionMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: "null"
+            - type: string
+        userId:
+          oneOf:
+            - type: "null"
+            - type: string
+        expiresAt:
+          oneOf:
+            - type: "null"
+            - type: string
+              format: date-time
+    SessionMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: "null"
+            - type: string
+        userId:
+          oneOf:
+            - type: "null"
+            - type: string
+        expiresAt:
+          oneOf:
+            - type: "null"
+            - type: string
+              format: date-time
+    PostCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: integer
+        content:
+          type: integer
+        userId:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - title
+        - content
+        - userId
+        - _all
+    PostMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: "null"
+            - type: string
+        title:
+          oneOf:
+            - type: "null"
+            - type: string
+        content:
+          oneOf:
+            - type: "null"
+            - type: string
+        userId:
+          oneOf:
+            - type: "null"
+            - type: string
+    PostMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: "null"
+            - type: string
+        title:
+          oneOf:
+            - type: "null"
+            - type: string
+        content:
+          oneOf:
+            - type: "null"
+            - type: string
+        userId:
+          oneOf:
+            - type: "null"
+            - type: string
+    _Meta:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Meta information about the request or response
+          properties:
+            serialization:
+              description: Serialization metadata
+          additionalProperties: true
+    _Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - message
+          properties:
+            prisma:
+              type: boolean
+              description: Indicates if the error occurred during a Prisma call
+            rejectedByPolicy:
+              type: boolean
+              description: Indicates if the error was due to rejection by a policy
+            code:
+              type: string
+              description: Prisma error code. Only available when "prisma" field is true.
+            message:
+              type: string
+              description: Error message
+            reason:
+              type: string
+              description: Detailed error reason
+            zodErrors:
+              type: object
+              additionalProperties: true
+              description: Zod validation errors if the error is due to data validation
+                failure
+          additionalProperties: true
+    BatchPayload:
+      type: object
+      properties:
+        count:
+          type: integer
+    UserCreateArgs:
+      type: object
+      required:
+        - data
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        data:
+          $ref: "#/components/schemas/UserCreateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserCreateManyArgs:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/UserCreateManyInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserFindUniqueArgs:
+      type: object
+      required:
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserUpdateArgs:
+      type: object
+      required:
+        - where
+        - data
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/UserUpdateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserUpdateManyArgs:
+      type: object
+      required:
+        - data
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        data:
+          $ref: "#/components/schemas/UserUpdateManyMutationInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserUpsertArgs:
+      type: object
+      required:
+        - create
+        - update
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/UserCreateInput"
+        update:
+          $ref: "#/components/schemas/UserUpdateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserDeleteUniqueArgs:
+      type: object
+      required:
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/UserMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/UserMaxAggregateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    UserGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/UserScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/UserMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/UserMaxAggregateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionCreateArgs:
+      type: object
+      required:
+        - data
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        data:
+          $ref: "#/components/schemas/SessionCreateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionCreateManyArgs:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/SessionCreateManyInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionFindUniqueArgs:
+      type: object
+      required:
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionUpdateArgs:
+      type: object
+      required:
+        - where
+        - data
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/SessionUpdateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionUpdateManyArgs:
+      type: object
+      required:
+        - data
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        data:
+          $ref: "#/components/schemas/SessionUpdateManyMutationInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionUpsertArgs:
+      type: object
+      required:
+        - create
+        - update
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/SessionCreateInput"
+        update:
+          $ref: "#/components/schemas/SessionUpdateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionDeleteUniqueArgs:
+      type: object
+      required:
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/SessionOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/SessionMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/SessionMaxAggregateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    SessionGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/SessionOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/SessionScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/SessionMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/SessionMaxAggregateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostCreateArgs:
+      type: object
+      required:
+        - data
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        data:
+          $ref: "#/components/schemas/PostCreateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostCreateManyArgs:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: "#/components/schemas/PostCreateManyInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostFindUniqueArgs:
+      type: object
+      required:
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostUpdateArgs:
+      type: object
+      required:
+        - where
+        - data
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/PostUpdateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostUpdateManyArgs:
+      type: object
+      required:
+        - data
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        data:
+          $ref: "#/components/schemas/PostUpdateManyMutationInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostUpsertArgs:
+      type: object
+      required:
+        - create
+        - update
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/PostCreateInput"
+        update:
+          $ref: "#/components/schemas/PostUpdateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostDeleteUniqueArgs:
+      type: object
+      required:
+        - where
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        include:
+          $ref: "#/components/schemas/PostInclude"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/PostOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/PostCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/PostMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/PostMaxAggregateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+    PostGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/PostOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/PostScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/PostCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/PostMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/PostMaxAggregateInput"
+        meta:
+          $ref: "#/components/schemas/_Meta"
+paths:
+  /user/create:
+    post:
+      operationId: createUser
+      description: Create a new User
+      tags:
+        - user
+      security: []
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateArgs"
+  /user/createMany:
+    post:
+      operationId: createManyUser
+      description: Create several User
+      tags:
+        - user
+      security: []
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateManyArgs"
+  /user/findUnique:
+    get:
+      operationId: findUniqueUser
+      description: Find one unique User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserFindUniqueArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/findFirst:
+    get:
+      operationId: findFirstUser
+      description: Find the first User matching the given condition
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserFindFirstArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/findMany:
+    get:
+      operationId: findManyUser
+      description: Find a list of User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserFindManyArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/update:
+    patch:
+      operationId: updateUser
+      description: Update a User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateArgs"
+  /user/updateMany:
+    patch:
+      operationId: updateManyUser
+      description: Update Users matching the given condition
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateManyArgs"
+  /user/upsert:
+    post:
+      operationId: upsertUser
+      description: Upsert a User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpsertArgs"
+  /user/delete:
+    delete:
+      operationId: deleteUser
+      description: Delete one unique User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDeleteUniqueArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/deleteMany:
+    delete:
+      operationId: deleteManyUser
+      description: Delete Users matching the given condition
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDeleteManyArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/count:
+    get:
+      operationId: countUser
+      description: Find a list of User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    oneOf:
+                      - type: integer
+                      - $ref: "#/components/schemas/UserCountAggregateOutputType"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserCountArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/aggregate:
+    get:
+      operationId: aggregateUser
+      description: Aggregate Users
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/AggregateUser"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserAggregateArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /user/groupBy:
+    get:
+      operationId: groupByUser
+      description: Group Users by fields
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserGroupByOutputType"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserGroupByArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/create:
+    post:
+      operationId: createSession
+      description: Create a new Session
+      tags:
+        - session
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionCreateArgs"
+  /session/createMany:
+    post:
+      operationId: createManySession
+      description: Create several Session
+      tags:
+        - session
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionCreateManyArgs"
+  /session/findUnique:
+    get:
+      operationId: findUniqueSession
+      description: Find one unique Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionFindUniqueArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/findFirst:
+    get:
+      operationId: findFirstSession
+      description: Find the first Session matching the given condition
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionFindFirstArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/findMany:
+    get:
+      operationId: findManySession
+      description: Find a list of Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionFindManyArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/update:
+    patch:
+      operationId: updateSession
+      description: Update a Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionUpdateArgs"
+  /session/updateMany:
+    patch:
+      operationId: updateManySession
+      description: Update Sessions matching the given condition
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionUpdateManyArgs"
+  /session/upsert:
+    post:
+      operationId: upsertSession
+      description: Upsert a Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionUpsertArgs"
+  /session/delete:
+    delete:
+      operationId: deleteSession
+      description: Delete one unique Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Session"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionDeleteUniqueArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/deleteMany:
+    delete:
+      operationId: deleteManySession
+      description: Delete Sessions matching the given condition
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionDeleteManyArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/count:
+    get:
+      operationId: countSession
+      description: Find a list of Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    oneOf:
+                      - type: integer
+                      - $ref: "#/components/schemas/SessionCountAggregateOutputType"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionCountArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/aggregate:
+    get:
+      operationId: aggregateSession
+      description: Aggregate Sessions
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/AggregateSession"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionAggregateArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /session/groupBy:
+    get:
+      operationId: groupBySession
+      description: Group Sessions by fields
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SessionGroupByOutputType"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionGroupByArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/create:
+    post:
+      operationId: createPost
+      description: Create a new Post
+      tags:
+        - post
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreateArgs"
+  /post/createMany:
+    post:
+      operationId: createManyPost
+      description: Create several Post
+      tags:
+        - post
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreateManyArgs"
+  /post/findUnique:
+    get:
+      operationId: findUniquePost
+      description: Find one unique Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostFindUniqueArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/findFirst:
+    get:
+      operationId: findFirstPost
+      description: Find the first Post matching the given condition
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostFindFirstArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/findMany:
+    get:
+      operationId: findManyPost
+      description: Find a list of Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostFindManyArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/update:
+    patch:
+      operationId: updatePost
+      description: Update a Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpdateArgs"
+  /post/updateMany:
+    patch:
+      operationId: updateManyPost
+      description: Update Posts matching the given condition
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpdateManyArgs"
+  /post/upsert:
+    post:
+      operationId: upsertPost
+      description: Upsert a Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpsertArgs"
+  /post/delete:
+    delete:
+      operationId: deletePost
+      description: Delete one unique Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Post"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostDeleteUniqueArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/deleteMany:
+    delete:
+      operationId: deleteManyPost
+      description: Delete Posts matching the given condition
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/BatchPayload"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostDeleteManyArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/count:
+    get:
+      operationId: countPost
+      description: Find a list of Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    oneOf:
+                      - type: integer
+                      - $ref: "#/components/schemas/PostCountAggregateOutputType"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostCountArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/aggregate:
+    get:
+      operationId: aggregatePost
+      description: Aggregate Posts
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: "#/components/schemas/AggregatePost"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostAggregateArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
+  /post/groupBy:
+    get:
+      operationId: groupByPost
+      description: Group Posts by fields
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PostGroupByOutputType"
+                    description: The Prisma response data serialized with superjson
+                  meta:
+                    $ref: "#/components/schemas/_Meta"
+                    description: The superjson serialization metadata for the "data" field
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_Error"
+          description: Request is forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Superjson-serialized Prisma query object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostGroupByArgs"
+        - name: meta
+          in: query
+          description: Superjson serialization metadata for parameter "q"
+          content:
+            application/json:
+              schema: {}
