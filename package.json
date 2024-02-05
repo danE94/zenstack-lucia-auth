@@ -10,20 +10,20 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@zenstackhq/openapi": "^1.7.1",
-    "@zenstackhq/tanstack-query": "^1.7.1",
+    "@zenstackhq/openapi": "^1.8.1",
+    "@zenstackhq/tanstack-query": "^1.8.1",
     "nuxt": "^3.9.3",
-    "prisma": "^5.8.1",
+    "prisma": "^5.9.1",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5",
-    "zenstack": "1.7.1"
+    "zenstack": "1.8.1"
   },
   "dependencies": {
     "@lucia-auth/adapter-prisma": "4.0.0-beta.10",
-    "@prisma/client": "^5.8.1",
+    "@prisma/client": "^5.9.1",
     "@tanstack/vue-query": "^5.17.19",
-    "@zenstackhq/runtime": "1.7.1",
-    "@zenstackhq/server": "^1.7.1",
+    "@zenstackhq/runtime": "1.8.1",
+    "@zenstackhq/server": "^1.8.1",
     "lucia": "3.0.0-beta.15",
     "oslo": "^1.0.1"
   }
